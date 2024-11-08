@@ -1,0 +1,37 @@
+{% extends "blog/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="content-section">
+  <div class="media">
+    <img class="rounded-circle account-img" src="{{ user.profile.image.url }}">
+    <div class="media-body">
+      <h2 class="account-heading">{{ user.username }}</h2>
+      <p class="text-secondary">{{ user.email }}</p>
+      <p class="text-secondary">{{ user.first_name }} {{ user.last_name }}</p>
+    </div>
+  </div>
+</div>
+{% if user.is_staff %}
+<div class="content-section">
+  <h5 class="text-center">Вы администратор</h5>
+  <div class="border-top pt-3 pb-2 text-center">
+    <a class="btn btn-outline-site" href="{% url 'admin:index' %}">Перейти в панель администратора</a>
+  </div>
+</div>
+{% endif %}
+
+<div class="content-section">
+  <h5 class="text-center">Ваши посты</h5>
+  {% if user.post_set.all %}
+  <ul class="list-group">
+    {% for post in user.post_set.all %}
+    <li class="list-group-item">
+      <a href="">{{ post.title }}</a>
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p class="text-center">Вы не создавали посты</p>
+  {% endif %}
+</div>
+{% endblock content %}
