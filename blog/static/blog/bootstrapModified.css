@@ -1,0 +1,204 @@
+.btn-outline-black {
+  color: black;
+  border-color: black;
+  background-color: transparent;
+}
+
+.btn-outline-black:hover,
+.btn-outline-black:focus,
+.btn-outline-black:active,
+.btn-outline-black.active {
+  color: white;
+  background-color: black;
+  border-color: black;
+  box-shadow: 0 0 0 0.25rem rgba(0, 0, 0, 0.5);
+}
+
+.btn-black {
+  color: white;
+  background-color: black;
+  border-color: black;
+}
+
+.btn-black:hover,
+.btn-black:focus,
+.btn-black:active,
+.btn-black.active {
+  color: black;
+  background-color: white;
+  border-color: black;
+  box-shadow: 0 0 0 0.25rem rgba(0, 0, 0, 0.5);
+}
+
+.btn-site {
+  color: white;
+  background-color: var(--site-color);
+  border-color: var(--site-color);
+}
+
+.btn-site:hover,
+.btn-site:focus,
+.btn-site:active,
+.btn-site.active {
+  color: var(--site-color);
+  background-color: white;
+  border-color: var(--site-color);
+  box-shadow: 0 0 0 0.25rem rgba(255, 255, 255, 0.5);
+}
+
+.btn-outline-site {
+  color: var(--site-color);
+  border-color: var(--site-color);
+  background-color: transparent;
+}
+
+.btn-outline-site:hover,
+.btn-outline-site:focus,
+.btn-outline-site:active,
+.btn-outline-site.active {
+  color: white;
+  background-color: var(--site-color);
+  border-color: var(--site-color);
+  box-shadow: 0 0 0 0.25rem rgba(var(--site-color-rgb), 0.5);
+}
+
+.btn-link {
+  color: var(--site-color);
+  transition: color 0.3s ease;
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  outline: none;
+  box-shadow: none;
+}
+
+.btn-link:hover,
+.btn-link:focus,
+.btn-link:active {
+  color: var(--accent-color);
+  text-decoration: none;
+}
+
+.btn-link-black {
+  color: black;
+  transition: color 0.3s ease;
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  outline: none;
+  box-shadow: none;
+}
+
+.btn-link-black:hover,
+.btn-link-black:focus,
+.btn-link-black:active {
+  color: rgba(0, 0, 0, 0.5);
+  text-decoration: none;
+}
+
+.bg-site {
+  background-color: var(--site-color) !important;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+  font-size: 1.2rem;
+  color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+}
+
+.bg-site a {
+  color: black;
+  transition: color 0.3s ease;
+}
+
+.bg-site a:hover,
+.bg-site a:focus {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.dropdown-toggle {
+  border: none;
+  box-shadow: none;
+  background: none;
+  padding: 0;
+  outline: none;
+}
+
+.dropdown-toggle:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.dropdown-toggle:hover {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.dropdown-menu {
+  background-color: var(--accent-color);
+  border-color: var(--accent-color);
+}
+
+.dropdown-menu a {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.dropdown-menu a:hover,
+.dropdown-menu a:focus {
+  background-color: rgba(0, 0, 0, 0.1);
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.dropdown-item:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.dropdown-item:hover {
+  background-color: var(--site-color);
+}
+
+.dropdown-item.active {
+  background-color: var(--site-color);
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.form-control {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.form-control:focus {
+  border-color: var(--site-color);
+  box-shadow: 0 0 0 0.25rem rgba(0, 0, 0, 0.1);
+}
+
+.form-control option {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.form-control option:hover,
+.form-control option:focus {
+  background-color: var(--site-color) !important;
+  color: rgba(0, 0, 0, 0.5);
+  background-image: none;
+}
+
+.form-select option:disabled {
+  color: rgba(0, 0, 0, 0.3);
+}
+
+.navbar-nav {
+  background-color: var(--site-color);
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+.navbar-nav a {
+  color: black;
+  transition: color 0.3s ease;
+}
+
+.navbar-nav a:hover,
+.navbar-nav a:focus {
+  color: rgba(0, 0, 0, 0.5);
+}
