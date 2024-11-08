@@ -5,13 +5,7 @@ from .forms import UserRegisterForm
 from .forms import AuthenticationForm
 from blog.constants import Constants
 from django.contrib.auth import login as auth_login, authenticate 
-
-def get_common_context():
-    return {
-        'title': Constants.SITE_NAME,
-        'logo': Constants.SITE_LOGO,
-        'flags': {'ru': 'Russia', 'en': 'United-Kingdom', 'fr': 'France', 'de': 'Germany', 'es': 'Spain', 'it': 'Italy', 'pt': 'Portugal', 'iw': 'Israel'}
-    }
+from blog.views import get_common_context
 
 def login(request):
     if request.method == 'POST':
@@ -42,7 +36,6 @@ def register(request):
     context = get_common_context()
     context['form'] = form
     return render(request, 'users/register.html', context)
-
 
 @login_required
 def profile(request):

@@ -1,42 +1,35 @@
-﻿{% extends "blog/base.html" %}
+{% extends "blog/components/base.html" %}
+{% load static %}
 {% block content %}
-<form method="get" class="mb-4">
-  <div class="input-group">
-    <select name="type" class="form-control" onchange="this.form.submit()">
-      <option value="">Всё</option>
-      {% for type in types %}
-      <option value="{{ type.id }}" {% if type.id|stringformat:"s" == request.GET.type|stringformat:"s" %}selected{% endif %}>
-        {{ type.name }}
-      </option>
-      {% endfor %}
-    </select>
-  </div>
-</form>
-{% for post in posts %}
-{% if request.GET.type|default:'' == '' or post.type.id|stringformat:"s" == request.GET.type|stringformat:"s" %}
-<article class="media content-section">
-  <div class="media-body">
-    <div class="article-metadata">
-      <a class="mr-2" href="#">{{ post.author }}</a>
-      <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
+
+<div class="content-section">
+    <div class="banner">
+        <img src="{% static '../upload/images/banner.jpg' %}" alt="Баннер" class="img-fluid w-100">
+        <div class="banner-text text-center">
+            <h1 class="display-4">Добро пожаловать на наш сайт!</h1>
+            <p class="lead">Исследуйте невероятные возможности путешествий с нами!</p>
+        </div>
     </div>
-    <div class="article-title">{{ post.title }}</div>
-    {% if post.rating %}
-    <div class="article-rating d-flex justify-content-center">
-      {% for i in 10|get_range %}
-      <i class="fas fa-star {% if i < post.rating %}text-warning{% endif %}"></i>
-      {% endfor %}
+</div>
+
+{% for type in types %}
+<div class="content-section">
+    <h2 class="text-center">{{ type.name }}</h2>
+    <div class="row">
+        {% for post in type.post_set.all %}
+        <div class="col-md-4 d-flex align-items-stretch">
+            <div class="card mb-4">
+                <img class="card-img-top" src="{{ post.image.url }}" alt="Изображение поста">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">{{ post.title }}</h5>
+                    <p class="card-text">{{ post.content|truncatechars:150 }}</p>
+                    <a href="" class="btn btn-outline-site mt-auto">Подробнее</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
     </div>
-    {% endif %}
-    {% if post.image %}
-    <img class="article-image" src="{{ post.image.url }}" alt="{{ post.title }}" />
-    {% endif %}
-    {% if post.price %}
-    <p class="article-price">{{ post.price }} <i class="fas fa-ruble-sign"></i></p>
-    {% endif %}
-    <p class="article-content">{{ post.content }}</p>
-  </div>
-</article>
-{% endif %}
+</div>
 {% endfor %}
+
 {% endblock content %}

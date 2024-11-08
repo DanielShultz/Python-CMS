@@ -1,0 +1,40 @@
+﻿{% extends "blog/components/base.html" %}
+{% block content %}
+<form method="get" class="mb-4">
+  <div class="input-group">
+    <select name="type" class="form-control" onchange="this.form.submit()">
+      <option value="">Всё</option>
+      {% for type in types %}
+      <option value="{{ type.id }}" {% if type.id|stringformat:"s" == request.GET.type|stringformat:"s" %}selected{% endif %}>
+        {{ type.name }}
+      </option>
+      {% endfor %}
+    </select>
+  </div>
+</form>
+{% for post in posts %}
+<article class="media content-section">
+  <div class="media-body">
+    <div class="article-metadata">
+      <a class="mr-2" href="#">{{ post.author }}</a>
+      <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
+    </div>
+    <div class="article-title">{{ post.title }}</div>
+    {% if post.rating %}
+    <div class="article-rating d-flex justify-content-center">
+      {% for i in 10|get_range %}
+      <i class="fas fa-star {% if i < post.rating %}text-warning{% endif %}"></i>
+      {% endfor %}
+    </div>
+    {% endif %}
+    {% if post.image %}
+    <img class="article-image" src="{{ post.image.url }}" alt="{{ post.title }}" />
+    {% endif %}
+    {% if post.price %}
+    <p class="article-price">{{ post.price }} <i class="fas fa-ruble-sign"></i></p>
+    {% endif %}
+    <p class="article-content">{{ post.content }}</p>
+  </div>
+</article>
+{% endfor %}
+{% endblock content %}

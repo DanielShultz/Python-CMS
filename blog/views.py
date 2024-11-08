@@ -8,16 +8,30 @@ def get_common_context():
         'types': Type.objects.all(),
         'title': Constants.SITE_NAME,
         'logo': Constants.SITE_LOGO,
-        'flags': {'ru': 'Russia', 'en': 'United-Kingdom', 'fr': 'France', 'de': 'Germany', 'es': 'Spain', 'it': 'Italy', 'pt': 'Portugal', 'iw': 'Israel'}
+        'flags': {'ru': 'Russia', 'en': 'United-Kingdom', 'fr': 'France', 'de': 'Germany', 'es': 'Spain', 'it': 'Italy', 'pt': 'Portugal', 'iw': 'Israel'},
+        'disable_sidebar': False
     }
 
-def home(request):
+def get_posts_context():
     context = get_common_context()
     context['posts'] = Post.objects.all()
-    return render(request, 'blog/home.html', context)
+    return context
 
+def home(request):
+    context = get_posts_context()
+    context['disable_sidebar'] = True
+    return render(request, 'blog/home.html', context)
 
 def about(request):
     context = get_common_context()
     return render(request, 'blog/about.html', context)
+
+def posts(request):
+    context = get_common_context()
+    post_type = request.GET.get('type')
+    if post_type:
+        context['posts'] = Post.objects.filter(type__id=post_type)
+    else:
+        context['posts'] = Post.objects.all()
+    return render(request, 'blog/posts.html', context)
 
