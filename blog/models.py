@@ -16,12 +16,29 @@ class Post(models.Model):
     class Meta:
         ordering = ['title']
 
+    def get_absolute_url(self):
+        return f'/post/{self.id}'
+    
+    def next_post(self):
+        return Post.objects.filter(date_posted__gt=self.date_posted, type=self.type).order_by('date_posted').first()
+    
+    def prev_post(self):
+        return Post.objects.filter(date_posted__lt=self.date_posted, type=self.type).order_by('-date_posted').first()
+
     def __str__(self):
         return self.title
     
 class Type(models.Model):
     name = models.CharField(max_length=100)
+    plural = models.CharField(max_length=100, blank=True, null=True)
+
+    class Meta:
+        ordering = ['name']
 
     def __str__(self):
         return self.name
 
+    def save(self, *args, **kwargs):
+        if not self.plural:
+            self.plural = self.name
+        super().save(*args, **kwargs)

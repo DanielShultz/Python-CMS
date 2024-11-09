@@ -1,6 +1,6 @@
 ﻿{% extends "blog/components/base.html" %}
 {% block content %}
-<form method="get" class="mb-4">
+<!-- <form method="get" class="mb-4">
   <div class="input-group">
     <select name="type" class="form-control" onchange="this.form.submit()">
       <option value="">Всё</option>
@@ -11,29 +11,38 @@
       {% endfor %}
     </select>
   </div>
-</form>
+</form> -->
 {% for post in posts %}
 <article class="media content-section">
   <div class="media-body">
     <div class="article-metadata">
-      <a class="mr-2" href="#">{{ post.author }}</a>
-      <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
+      <a class="mr-2" href="#">{{ post.author.first_name }} {{ post.author.last_name }}</a>
+      <small class="text-muted">{{ post.date_posted|localize }}</small>
     </div>
-    <div class="article-title">{{ post.title }}</div>
-    {% if post.rating %}
-    <div class="article-rating d-flex justify-content-center">
-      {% for i in 10|get_range %}
-      <i class="fas fa-star {% if i < post.rating %}text-warning{% endif %}"></i>
-      {% endfor %}
+
+    <div class="row">
+      <div class="col-md-4 d-flex align-items-stretch">
+        {% if post.image %}
+        <img class="article-image w-100 h-100" src="{{ post.image.url }}" alt="{{ post.title }}" />
+        {% endif %}
+      </div>
+      <div class="col-md-8 d-flex flex-column justify-content-center">
+        <h2 class="article-title text-center">{{ post.title }}</h2>
+        {% if post.rating %}
+        <div class="article-rating d-flex justify-content-center">
+          {% for i in 10|get_range %}
+          <i class="fas fa-star {% if i < post.rating %}text-warning{% endif %}"></i>
+          {% endfor %}
+        </div>
+        {% endif %}
+        <p class="article-content text-center">{{ post.content|truncatesentences:1 }}</p>
+        {% if post.price %}
+        <p class="article-price text-center">{{ post.price }} <i class="fas fa-ruble-sign"></i></p>
+        {% endif %}
+        <a href="{{ post.get_absolute_url }}" class="btn btn-outline-site mt-auto mx-auto text-center">Подробнее</a>
+      </div>
     </div>
-    {% endif %}
-    {% if post.image %}
-    <img class="article-image" src="{{ post.image.url }}" alt="{{ post.title }}" />
-    {% endif %}
-    {% if post.price %}
-    <p class="article-price">{{ post.price }} <i class="fas fa-ruble-sign"></i></p>
-    {% endif %}
-    <p class="article-content">{{ post.content }}</p>
+
   </div>
 </article>
 {% endfor %}

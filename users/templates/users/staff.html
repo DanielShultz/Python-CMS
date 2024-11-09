@@ -1,0 +1,29 @@
+{% extends "blog/components/base.html" %}
+{% block content %}
+<div class="content-section text-center">
+    <h1>Добро пожаловать на страницу сотрудников</h1>
+    <p>Здесь вы можете найти информацию о наших сотрудниках и их достижениях.</p>
+
+    <div class="row mt-4">
+        {% for staff_member in staff_members %}
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <img class="card-img-top rounded-circle" src="{{ staff_member.image.url }}" alt="{{ staff_member.username }}" width="250">
+                <div class="card-body">
+                    <h3 class="card-title">{{ staff_member.user.first_name }} {{ staff_member.user.last_name }}</h3>
+
+                    {% if staff_member.position %}
+                    <p class="card-text"><strong>Должность:</strong> {{ staff_member.position }}</p>
+                    {% endif %}
+
+                    {% if staff_member.description %}
+                    <p class="card-text"><strong>Описание:</strong> {{ staff_member.description|truncatewords:20 }}</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+{% endblock content %}

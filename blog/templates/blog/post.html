@@ -1,0 +1,48 @@
+{% extends "blog/components/base.html" %}
+{% block content %}
+
+<article class="media content-section">
+    <div class="media-body">
+        <div class="article-metadata">
+            <a class="mr-2" href="#">{{ post.author.first_name }} {{ post.author.last_name }}</a>
+            <small class="text-muted">{{ post.date_posted|localize }}</small>
+        </div>
+
+        <h2 class="article-title">{{ post.title }}</h2>
+
+        {% if post.rating %}
+        <div class="article-rating d-flex justify-content-center">
+            {% for i in 10|get_range %}
+            <i class="fas fa-star {% if i < post.rating %}text-warning{% endif %}"></i>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        {% if post.image %}
+        <img class="article-image" src="{{ post.image.url }}" alt="{{ post.title }}" />
+        {% endif %}
+
+        {% if post.price %}
+        <p class="article-price">{{ post.price }} <i class="fas fa-ruble-sign"></i></p>
+        {% endif %}
+
+        <p class="article-content">{{ post.content }}</p>
+
+        <nav class="d-flex justify-content-between mt-4">
+            {% if post.prev_post or post.next_post %}
+            {% if post.prev_post %}
+            <a class="btn btn-outline-site" href="{{ post.prev_post.get_absolute_url }}">Назад</a>
+            {% else %}
+            <span></span>
+            {% endif %}
+            {% if post.next_post %}
+            <a class="btn btn-outline-site" href="{{ post.next_post.get_absolute_url }}">Вперёд</a>
+            {% else %}
+            <span></span>
+            {% endif %}
+            {% endif %}
+        </nav>
+    </div>
+</article>
+
+{% endblock content %}

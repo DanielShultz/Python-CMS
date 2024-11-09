@@ -2,15 +2,25 @@
 {% load crispy_forms_tags %}
 {% block content %}
 <div class="content-section">
-  <div class="media">
-    <img class="rounded-circle account-img" src="{{ user.profile.image.url }}">
-    <div class="media-body">
+  <div class="row align-items-center">
+    <div class="col-md-4">
+      <img class="rounded-circle img-fluid" src="{{ user.profile.image.url }}"
+        alt="{{ user.username }}'s profile picture">
+    </div>
+    <div class="col-md-8">
       <h2 class="account-heading">{{ user.username }}</h2>
-      <p class="text-secondary">{{ user.email }}</p>
-      <p class="text-secondary">{{ user.first_name }} {{ user.last_name }}</p>
+      <p class="text-secondary"><strong>Электронная почта:</strong> {{ user.email }}</p>
+      <p class="text-secondary"><strong>Имя:</strong> {{ user.first_name }} {{ user.last_name }}</p>
+      {% if user.profile.position %}
+      <p class="text-secondary"><strong>Должность:</strong> {{ user.profile.position }}</p>
+      {% endif %}
+      {% if user.profile.description %}
+      <p class="text-secondary"><strong>Описание:</strong> {{ user.profile.description }}</p>
+      {% endif %}
     </div>
   </div>
 </div>
+
 {% if user.is_staff %}
 <div class="content-section">
   <h5 class="text-center">Вы администратор</h5>

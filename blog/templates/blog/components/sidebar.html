@@ -9,11 +9,13 @@
             {% for type in types %}
             <li class="list-group-item list-group-item-light">
                 <a href="{% url 'blog-posts' %}?type={{ type.id }}">
-                    {{ type.name }}
+                    {{ type.plural }}
                 </a>
             </li>
             {% endfor %}
             <li class="list-group-item list-group-item-light"><a href="{% url 'blog-about' %}">О сайте</a></li>
+            <li class="list-group-item list-group-item-light"><a href="{% url 'users-staff' %}">Персонал</a></li>
+            <li class="list-group-item list-group-item-light"><a href="{% url 'blog-contact' %}">Контакты</a></li>
             <li class="list-group-item list-group-item-light"><a href="{% url 'profile' %}">Профиль</a></li>
         </ul>
         </p>

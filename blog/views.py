@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import Post, Type
-from .functions import get_range
+from . import functions
 from .constants import Constants
 
 def get_common_context():
@@ -26,6 +26,10 @@ def about(request):
     context = get_common_context()
     return render(request, 'blog/about.html', context)
 
+def contact(request):
+    context = get_common_context()
+    return render(request, 'blog/contact.html', context)
+
 def posts(request):
     context = get_common_context()
     post_type = request.GET.get('type')
@@ -35,3 +39,7 @@ def posts(request):
         context['posts'] = Post.objects.all()
     return render(request, 'blog/posts.html', context)
 
+def post(request, post_id):
+    context = get_common_context()
+    context['post'] = Post.objects.get(id=post_id)
+    return render(request, 'blog/post.html', context)

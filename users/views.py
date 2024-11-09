@@ -6,6 +6,7 @@ from .forms import AuthenticationForm
 from blog.constants import Constants
 from django.contrib.auth import login as auth_login, authenticate 
 from blog.views import get_common_context
+from users.models import Profile
 
 def login(request):
     if request.method == 'POST':
@@ -41,3 +42,8 @@ def register(request):
 def profile(request):
     context = get_common_context()
     return render(request, 'users/profile.html', context)
+
+def staff(request):
+    context = get_common_context()
+    context['staff_members'] = Profile.objects.filter(show_in_staff=True)
+    return render(request, 'users/staff.html', context)
