@@ -5,7 +5,9 @@ from . import forms
 from blog.constants import Constants
 from django.contrib.auth import login as auth_login, authenticate, logout as auth_logout
 from blog.views import get_common_context
-from users.models import Profile
+from .models import Profile
+from blog.models import Post
+from django.contrib.auth.models import User
 
 def login(request):
     if request.method == 'POST':
@@ -67,3 +69,15 @@ def staff(request):
     context = get_common_context()
     context['staff_members'] = Profile.objects.filter(show_in_staff=True)
     return render(request, 'users/staff.html', context)
+
+def author(request, username):
+    try:
+        author = User.objects.get(username=username)
+    except User.DoesNotExist:
+        messages.error(request, 'Такого пользователя не существует.')
+        return redirect('blog-home')
+    
+    context = get_common_context()
+    context['author'] = author
+    context['posts'] = Post.objects.filter(author=author)
+    return render(request, 'users/author.html', context)

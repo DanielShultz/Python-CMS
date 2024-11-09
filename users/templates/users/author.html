@@ -1,0 +1,47 @@
+{% extends "blog/components/base.html" %}
+{% block content %}
+<div class="content-section">
+    <div class="row align-items-center">
+        <div class="col-md-4">
+            <img class="rounded-circle img-fluid" src="{{ author.profile.image.url }}" alt="{{ author.username }}'s profile picture">
+        </div>
+        <div class="col-md-8">
+            <h2 class="account-heading">{{ author.username }}</h2>
+            <p class="text-secondary"><strong>Электронная почта:</strong> {{ author.email }}</p>
+            <p class="text-secondary"><strong>Имя:</strong> {{ author.first_name }} {{ author.last_name }}</p>
+            {% if author.profile.position %}
+            <p class="text-secondary"><strong>Должность:</strong> {{ author.profile.position }}</p>
+            {% endif %}
+            {% if author.profile.description %}
+            <p class="text-secondary"><strong>Описание:</strong> {{ author.profile.description }}</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<div class="content-section text-center">
+    <h5>Посты автора</h5>
+    {% if posts %}
+        {% for post in posts %}
+        <div class="card mb-4 mx-auto w-100 p-3">
+            <div class="row no-gutters">
+                <div class="col-md-4 pr-md-1">
+                    {% if post.image %}
+                    <img class="card-img-top h-100" src="{{ post.image.url }}" alt="{{ post.title }}">
+                    {% endif %}
+                </div>
+                <div class="col-md-8 pl-md-1 d-flex flex-column justify-content-center">
+                    <h5 class="card-title">{{ post.title }}</h5>
+                    <p class="card-text">{{ post.content|truncatesentences:1 }}</p>
+                    <a href="{{ post.get_absolute_url }}" class="btn btn-outline-site mt-auto mx-auto">Подробнее</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+    <p>У автора еще нет постов</p>
+    {% endif %}
+</div>
+{% endblock content %}
+
+

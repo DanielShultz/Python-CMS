@@ -9,5 +9,18 @@ class Profile(models.Model):
     position = models.CharField(max_length=100, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
 
+    class Meta:
+        verbose_name = 'Профиль'
+        verbose_name_plural = 'Профили'
+        ordering = ['user']
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        self.user.save()
+        return self
+
+    def get_absolute_url(self):
+        return f'/users/author/{self.user.username}'
+
     def __str__(self):
         return f'{self.user.username} Profile'
