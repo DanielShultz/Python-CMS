@@ -19,6 +19,9 @@
       {% endif %}
     </div>
   </div>
+  <div class="text-center">
+    <a class="btn btn-outline-site" href="{% url 'profile-edit' %}">Редактировать профиль</a>
+  </div>
 </div>
 
 {% if user.is_staff %}
@@ -31,17 +34,19 @@
 {% endif %}
 
 <div class="content-section">
-  <h5 class="text-center">Ваши посты</h5>
-  {% if user.post_set.all %}
-  <ul class="list-group">
-    {% for post in user.post_set.all %}
-    <li class="list-group-item">
-      <a href="">{{ post.title }}</a>
-    </li>
-    {% endfor %}
-  </ul>
-  {% else %}
-  <p class="text-center">Вы не создавали посты</p>
-  {% endif %}
+  <div class="md-3">
+    <h5 class="text-center">Ваши посты</h5>
+    {% if user.post_set.all %}
+    <ul class="list-group">
+      {% for post in user.post_set.all %}
+      <li class="list-group-item">
+        <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p class="text-center">Вы не создавали посты</p>
+    {% endif %}
+  </div>
 </div>
 {% endblock content %}

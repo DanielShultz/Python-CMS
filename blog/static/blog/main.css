@@ -118,7 +118,7 @@ footer p {
 }
 
 footer a {
-  color: var(--font-color-4);
+  color: var(--accent-color);
 }
 
 footer a:hover {

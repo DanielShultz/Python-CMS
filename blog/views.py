@@ -8,6 +8,7 @@ def get_common_context():
         'types': Type.objects.all(),
         'title': Constants.SITE_NAME,
         'logo': Constants.SITE_LOGO,
+        'description': Constants.SITE_DESCRIPTION,
         'flags': {'ru': 'Russia', 'en': 'United-Kingdom', 'fr': 'France', 'de': 'Germany', 'es': 'Spain', 'it': 'Italy', 'pt': 'Portugal', 'iw': 'Israel'},
         'disable_sidebar': False
     }
