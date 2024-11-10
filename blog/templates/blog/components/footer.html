@@ -28,7 +28,7 @@
                             <nav class="nav nav-pills nav-fill justify-content-center">
                                 <a class="nav-link" href="{% url 'blog-home' %}">Главная</a>
                                 {% for type in types %}
-                                <a class="nav-link" href="{% url 'blog-posts' %}?type={{ type.id }}">{{ type.plural }}</a>
+                                <a class="nav-link" href="{% url 'blog-posts' type.id %}">{{ type.plural }}</a>
                                 {% endfor %}
                                 <a class="nav-link" href="{% url 'blog-about' %}">О сайте</a>
                                 <a class="nav-link" href="{% url 'staff' %}">Персонал</a>

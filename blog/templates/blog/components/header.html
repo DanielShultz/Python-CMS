@@ -23,7 +23,7 @@
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             {% for type in types %}
                             <a class="dropdown-item"
-                                href="{% url 'blog-posts' %}?type={{ type.id }}">{{ type.plural }}</a>
+                                href="{% url 'blog-posts' type.id %}">{{ type.plural }}</a>
                             {% endfor %}
                         </div>
                     </li>

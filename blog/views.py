@@ -30,12 +30,14 @@ def contact(request):
     context = get_common_context()
     return render(request, 'blog/contact.html', context)
 
-def posts(request):
+def posts(request, type_id):
     context = get_common_context()
-    context['posts'] = models.Post.objects.all()
-    post_type = request.GET.get('type')
-    if post_type:
-        context['posts'] = context['posts'].filter(type__id=post_type)
+    try:
+        context['type'] = models.Type.objects.get(id=type_id)
+    except models.Type.DoesNotExist:
+        messages.error(request, 'Такого типа не существует')
+        return redirect('blog:home')
+    context['posts'] = models.Post.objects.filter(type=context['type'])
     return render(request, 'blog/posts.html', context)
 
 def post(request, post_id):
@@ -64,13 +66,14 @@ def post(request, post_id):
 def delete_comment(request, post_id, comment_id):
     try:
         comment = models.Comment.objects.get(id=comment_id)
-        if comment.author == request.user:
-            comment.delete()
-            messages.success(request, 'Комментарий удален!')
-            return redirect('blog-post', post_id=post_id)
-        else:
-            messages.error(request, 'Вы не можете удалить этот комментарий.')
-            return redirect('blog-post', post_id=post_id)
     except models.Comment.DoesNotExist:
         messages.error(request, 'Такого комментария не существует.')
+        return redirect('blog-post', post_id=post_id)
+
+    if comment.author == request.user:
+        comment.delete()
+        messages.success(request, 'Комментарий удален!')
+        return redirect('blog-post', post_id=post_id)
+    else:
+        messages.error(request, 'Вы не можете удалить этот комментарий.')
         return redirect('blog-post', post_id=post_id)
