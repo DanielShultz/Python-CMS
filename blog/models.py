@@ -42,3 +42,15 @@ class Type(models.Model):
         if not self.plural:
             self.plural = self.name
         super().save(*args, **kwargs)
+
+class Comment(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    content = models.TextField()
+    date_posted = models.DateTimeField(default=timezone.now)
+
+    class Meta:
+        ordering = ['date_posted']
+
+    def __str__(self):
+        return self.content

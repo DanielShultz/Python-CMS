@@ -1,6 +1,16 @@
 {% extends "blog/components/base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
+
+{% if user.is_staff %}
+<div class="content-section">
+  <h5 class="text-center">Вы администратор</h5>
+  <div class="border-top pt-3 pb-2 text-center">
+    <a class="btn btn-outline-site" href="{% url 'admin:index' %}">Перейти в панель администратора</a>
+  </div>
+</div>
+{% endif %}
+
 <div class="content-section">
   <div class="row align-items-center">
     <div class="col-md-4">
@@ -24,29 +34,48 @@
   </div>
 </div>
 
-{% if user.is_staff %}
-<div class="content-section">
-  <h5 class="text-center">Вы администратор</h5>
-  <div class="border-top pt-3 pb-2 text-center">
-    <a class="btn btn-outline-site" href="{% url 'admin:index' %}">Перейти в панель администратора</a>
-  </div>
-</div>
-{% endif %}
-
 <div class="content-section">
   <div class="md-3">
     <h5 class="text-center">Ваши посты</h5>
-    {% if user.post_set.all %}
-    <ul class="list-group">
-      {% for post in user.post_set.all %}
-      <li class="list-group-item">
-        <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
-      </li>
-      {% endfor %}
-    </ul>
-    {% else %}
-    <p class="text-center">Вы не создавали посты</p>
-    {% endif %}
+    <div class="text-center border-top pt-3 pb-2">
+      <button class="btn btn-outline-site collapsed mb-3" type="button" data-toggle="collapse" data-target="#collapsePosts" aria-expanded="false" aria-controls="collapsePosts">
+        Показать/скрыть
+      </button>
+    </div>
+    <div class="collapse" id="collapsePosts">
+      {% if user.post_set.all %}
+      <ul class="list-group">
+        {% for post in user.post_set.all %}
+        <li class="list-group-item">
+          <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+        </li>
+        {% endfor %}
+      </ul>
+      {% else %}
+      <p class="text-center">Вы не создавали посты</p>
+      {% endif %}
+    </div>
   </div>
 </div>
+
+<div class="content-section">
+  <div class="md-3">
+    <h5 class="text-center">Ваши комментарии</h5>
+    <div class="text-center border-top pt-3 pb-2">
+      <button class="btn btn-outline-site collapsed mb-3" type="button" data-toggle="collapse" data-target="#collapseComments" aria-expanded="false" aria-controls="collapseComments">
+        Показать/скрыть
+      </button>
+    </div>
+    <div class="collapse" id="collapseComments">
+      <ul class="list-group">
+        {% for comment in user.comment_set.all %}
+        <li class="list-group-item">
+          <a href="{{ comment.post.get_absolute_url }}#comment-{{ comment.pk }}">{{ comment.content }} ({{ comment.post.title }})</a>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
+
 {% endblock content %}

@@ -1,15 +1,23 @@
 {% extends "blog/components/base.html" %}
+{% load crispy_forms_tags %}
 {% block content %}
 
 <article class="media content-section">
+    <!-- Информация о посте -->
     <div class="media-body">
         <div class="article-metadata">
-            <a class="mr-2" href="{{ post.author.profile.get_absolute_url }}">{{ post.author.first_name }} {{ post.author.last_name }}</a>
+            <!-- Автор и дата -->
+            <a class="mr-2" href="{{ post.author.profile.get_absolute_url }}">
+                {{ post.author.first_name }}
+                {{ post.author.last_name }}
+            </a>
             <small class="text-muted">{{ post.date_posted|localize }}</small>
         </div>
 
+        <!-- Заголовок -->
         <h2 class="article-title">{{ post.title }}</h2>
 
+        <!-- Рейтинг -->
         {% if post.rating %}
         <div class="article-rating d-flex justify-content-center">
             {% for i in 10|get_range %}
@@ -18,16 +26,20 @@
         </div>
         {% endif %}
 
+        <!-- Изображение -->
         {% if post.image %}
         <img class="article-image" src="{{ post.image.url }}" alt="{{ post.title }}" />
         {% endif %}
 
+        <!-- Цена -->
         {% if post.price %}
         <p class="article-price">{{ post.price }} <i class="fas fa-ruble-sign"></i></p>
         {% endif %}
 
+        <!-- Содержимое -->
         <p class="article-content">{{ post.content }}</p>
 
+        <!-- Навигация -->
         <nav class="d-flex justify-content-between mt-4">
             {% if post.prev_post or post.next_post %}
             {% if post.prev_post %}
@@ -44,5 +56,47 @@
         </nav>
     </div>
 </article>
+
+<!-- Комментарии -->
+{% if comments %}
+{% for comment in comments %}
+<div class="media content-section" id="comment-{{ comment.pk }}">
+    <img class="d-flex mr-3 rounded-circle" src="{{ comment.author.profile.image.url }}" alt="" width="50" height="50">
+    <div class="media-body">
+        <div class="article-metadata">
+            <a class="mr-2" href="{{ comment.author.profile.get_absolute_url }}">
+                {{ comment.author.first_name }}
+                {{ comment.author.last_name }}
+            </a>
+            <small class="text-muted">{{ comment.date_posted|localize }}</small>
+        </div>
+        <div class="d-flex justify-content-between align-items-center">
+            <p class="article-content mb-0">{{ comment.content }}</p>
+            {% if user == comment.author %}
+            <a class="btn btn-outline-danger btn-sm" href="{% url 'delete-comment' post.pk comment.pk %}">
+                Удалить
+            </a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% endif %}
+
+<!-- Форма комментирования -->
+{% if user.is_authenticated %}
+<div class="content-section">
+    <form method="POST" action="{% url 'blog-post' post.pk %}">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Добавить комментарий</legend>
+            {{ comment_form|crispy }}
+        </fieldset>
+        <div class="form-group">
+            <button class="btn btn-outline-site" type="submit">Отправить</button>
+        </div>
+    </form>
+</div>
+{% endif %}
 
 {% endblock content %}

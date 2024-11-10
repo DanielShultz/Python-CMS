@@ -1,12 +1,12 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import login as auth_login, authenticate, logout as auth_logout
 from . import forms
 from blog.constants import Constants
-from django.contrib.auth import login as auth_login, authenticate, logout as auth_logout
 from blog.views import get_common_context
 from .models import Profile
-from blog.models import Post
+from blog.models import Post, Type
 from django.contrib.auth.models import User
 
 def login(request):

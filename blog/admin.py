@@ -1,6 +1,6 @@
 from django.contrib import admin
-from .models import Post, Type
+from . import models
 
-admin.site.register(Post)
-admin.site.register(Type)
-
+admin.site.register(models.Post)
+admin.site.register(models.Type)
+admin.site.register(models.Comment)
