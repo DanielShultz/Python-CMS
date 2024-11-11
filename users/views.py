@@ -3,7 +3,6 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login as auth_login, authenticate, logout as auth_logout
 from . import forms
-from blog.constants import Constants
 from blog.views import get_common_context
 from .models import Profile
 from blog.models import Post, Type

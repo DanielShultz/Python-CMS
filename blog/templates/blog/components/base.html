@@ -1,10 +1,9 @@
 ﻿{% load static %}
 <!DOCTYPE html>
 <html>
-
 {% include 'blog/components/head.html' %}
 
-<body>
+<body class="{% if request.COOKIES.theme %}{{ request.COOKIES.theme }}-theme{% else %}light-theme{% endif %}">
 
   {% include 'blog/components/header.html' %}
 

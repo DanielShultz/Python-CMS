@@ -1,0 +1,25 @@
+{% load static %}
+
+<!-- Перевод на другие языки -->
+{% with googtrans=request.COOKIES.googtrans|slice:"-2:"|default:"ru" %}
+<div class="dropdown d-flex justify-content-center">
+    <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+        aria-expanded="false">
+        {% with flags=flags %}
+        {% with flag=flags|get:googtrans %}
+        <img src="{% static '../upload/flags/24/' %}{{ flag }}.png" alt="{{ googtrans|upper }}" class="language__img">
+        <span class="notranslate">{{ googtrans|upper }}</span>
+        {% endwith %}
+        {% endwith %}
+    </button>
+    <div class="dropdown-menu" value="">
+        {% for flag in flags %}
+        <button class="dropdown-item{% if googtrans == flag %} active{% endif %}" type="button"
+            data-google-lang="{{ flag }}"><img src="{% static '../upload/flags/24/' %}{{ flags|get:flag }}.png"
+                alt="{{ flag }}" class="language__img">
+            <span class="notranslate">
+                {{ flag|upper }}</span></button>
+        {% endfor %}
+    </div>
+</div>
+{% endwith %}

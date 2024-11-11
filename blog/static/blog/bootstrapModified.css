@@ -1,6 +1,6 @@
 .btn-outline-black {
-  color: black;
-  border-color: black;
+  color: var(--font-color-1);
+  border-color: var(--font-color-1);
   background-color: transparent;
 }
 
@@ -8,30 +8,30 @@
 .btn-outline-black:focus,
 .btn-outline-black:active,
 .btn-outline-black.active {
-  color: white;
-  background-color: black;
-  border-color: black;
-  box-shadow: 0 0 0 0.25rem rgba(0, 0, 0, 0.5);
+  color: var(--font-color-6);
+  background-color: var(--font-color-1);
+  border-color: var(--font-color-1);
+  box-shadow: 0 0 0 0.25rem rgba(var(--font-color-1), 0.5);
 }
 
 .btn-black {
-  color: white;
-  background-color: black;
-  border-color: black;
+  color: var(--font-color-6);
+  background-color: var(--font-color-1);
+  border-color: var(--font-color-1);
 }
 
 .btn-black:hover,
 .btn-black:focus,
 .btn-black:active,
 .btn-black.active {
-  color: black;
-  background-color: white;
-  border-color: black;
-  box-shadow: 0 0 0 0.25rem rgba(0, 0, 0, 0.5);
+  color: var(--font-color-1);
+  background-color: var(--font-color-6);
+  border-color: var(--font-color-1);
+  box-shadow: 0 0 0 0.25rem rgba(var(--font-color-1), 0.5);
 }
 
 .btn-site {
-  color: white;
+  color: var(--font-color-6);
   background-color: var(--site-color);
   border-color: var(--site-color);
 }
@@ -41,9 +41,9 @@
 .btn-site:active,
 .btn-site.active {
   color: var(--site-color);
-  background-color: white;
+  background-color: var(--font-color-6);
   border-color: var(--site-color);
-  box-shadow: 0 0 0 0.25rem rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 0 0.25rem rgba(var(--site-color), 0.5);
 }
 
 .btn-outline-site {
@@ -56,10 +56,10 @@
 .btn-outline-site:focus,
 .btn-outline-site:active,
 .btn-outline-site.active {
-  color: white;
+  color: var(--font-color-6);
   background-color: var(--site-color);
   border-color: var(--site-color);
-  box-shadow: 0 0 0 0.25rem rgba(var(--site-color-rgb), 0.5);
+  box-shadow: 0 0 0 0.25rem rgba(var(--site-color), 0.5);
 }
 
 .btn-link {
@@ -80,7 +80,7 @@
 }
 
 .btn-link-black {
-  color: black;
+  color: var(--font-color-1);
   transition: color 0.3s ease;
   background-color: transparent;
   border: none;
@@ -92,27 +92,27 @@
 .btn-link-black:hover,
 .btn-link-black:focus,
 .btn-link-black:active {
-  color: rgba(0, 0, 0, 0.5);
+  color: rgba(var(--font-color-1), 0.5);
   text-decoration: none;
 }
 
 .bg-site {
   background-color: var(--site-color) !important;
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0.5rem 1rem rgba(var(--font-color-1), 0.2);
   font-size: 1.2rem;
-  color: rgba(0, 0, 0, 0.6);
+  color: rgba(var(--font-color-1), 0.6);
   display: flex;
   align-items: center;
 }
 
 .bg-site a {
-  color: black;
+  color: var(--font-color-1);
   transition: color 0.3s ease;
 }
 
 .bg-site a:hover,
 .bg-site a:focus {
-  color: rgba(0, 0, 0, 0.5);
+  color: rgba(var(--font-color-1), 0.5);
 }
 
 .dropdown-toggle {
@@ -129,7 +129,7 @@
 }
 
 .dropdown-toggle:hover {
-  color: rgba(0, 0, 0, 0.5);
+  color: rgba(var(--font-color-1), 0.5);
 }
 
 .dropdown-menu {
@@ -138,13 +138,17 @@
 }
 
 .dropdown-menu a {
-  color: rgba(0, 0, 0, 0.6);
+  color: rgba(var(--font-color-1), 0.6);
 }
 
 .dropdown-menu a:hover,
 .dropdown-menu a:focus {
-  background-color: rgba(0, 0, 0, 0.1);
-  color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(var(--font-color-1), 0.1);
+  color: rgba(var(--font-color-1), 0.5);
+}
+
+.dropdown-item {
+  color: var(--font-color-1);
 }
 
 .dropdown-item:focus {
@@ -158,47 +162,86 @@
 
 .dropdown-item.active {
   background-color: var(--site-color);
-  color: rgba(0, 0, 0, 0.6);
+  color: var(--font-color-1);
 }
 
 .form-control {
-  color: rgba(0, 0, 0, 0.6);
+  color: rgba(var(--font-color-1), 0.6);
+  background-color: var(--font-color-6);
 }
 
 .form-control:focus {
   border-color: var(--site-color);
-  box-shadow: 0 0 0 0.25rem rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 0 0.25rem rgba(var(--site-color-rgb), 0.5);
 }
 
 .form-control option {
-  color: rgba(0, 0, 0, 0.6);
+  color: rgba(var(--font-color-1), 0.6);
 }
 
 .form-control option:hover,
 .form-control option:focus {
   background-color: var(--site-color) !important;
-  color: rgba(0, 0, 0, 0.5);
+  color: rgba(var(--font-color-1), 0.5);
   background-image: none;
 }
 
 .form-select option:disabled {
-  color: rgba(0, 0, 0, 0.3);
+  color: rgba(var(--font-color-1), 0.3);
 }
 
 .navbar-nav {
   background-color: var(--site-color);
-  color: rgba(0, 0, 0, 0.6);
+  color: var(--font-color-1);
   font-size: 1rem;
   display: flex;
   align-items: center;
 }
 
 .navbar-nav a {
-  color: black;
+  color: var(--font-color-1);
   transition: color 0.3s ease;
 }
 
 .navbar-nav a:hover,
 .navbar-nav a:focus {
-  color: rgba(0, 0, 0, 0.5);
+  color: rgba(var(--font-color-1), 0.5);
+}
+
+.card {
+  background-color: var(--card-color);
+  border-color: var(--font-color-3);
+}
+
+.card-header {
+  background-color: var(--site-color);
+  color: rgba(var(--font-color-1), 0.6);
+}
+
+.card-body {
+  color: rgba(var(--font-color-1), 0.6);
+}
+
+.card-footer {
+  background-color: var(--font-color-2);
+  color: rgba(var(--font-color-1), 0.6);
+}
+
+.list-group-item {
+  background-color: var(--content-color);
+  color: var(--font-color-1);
+  border: none;
+}
+
+.list-group-item:hover,
+.list-group-item:focus {
+  background-color: var(--body-color);
+  color: var(--font-color-2);
+  border: none;
+}
+
+.list-group-item.active {
+  background-color: var(--accent-color);
+  color: var(--font-color-6);
+  border-color: var(--third-color);
 }

@@ -1,17 +1,4 @@
-﻿:root {
-  --site-color: rgb(240, 110, 150);
-  --accent-color: rgb(255, 170, 190);
-  --third-color: rgb(230, 90, 140);
-
-  --font-color-1: rgb(0, 0, 0);
-  --font-color-2: rgb(51, 51, 51);
-  --font-color-3: rgb(102, 102, 102);
-  --font-color-4: rgb(153, 153, 153);
-  --font-color-5: rgb(240, 240, 240);
-  --font-color-6: rgb(255, 255, 255);
-}
-
-body {
+﻿body {
   color: var(--site-color);
 }
 
@@ -24,14 +11,14 @@ html {
 body {
   margin: 0;
   padding: 0;
-  background: var(--font-color-5);
+  background: var(--body-color);
   color: var(--font-color-1);
   margin-top: 5rem;
   font-family: Roboto;
 }
 
 .content-section {
-  background: var(--font-color-6);
+  background: var(--content-color);
   padding: 10px 20px;
   border: 1px solid var(--accent-color);
   border-radius: 3px;
@@ -105,15 +92,24 @@ footer {
   top: 100%;
   padding-top: 25px;
   padding-bottom: 25px;
-  border-top: 1px solid #ddd;
-  background-color: var(--font-color-2);
+  border-top: 1px solid var(--font-color-4);
+  background-color: var(--footer-color);
+}
+
+footer h1,
+footer h2,
+footer h3,
+footer h4,
+footer h5,
+footer h6 {
+  color: var(--footer-header-color);
 }
 
 footer p {
   margin: 2px;
   text-align: center;
   padding: 0 40px;
-  color: #fff;
+  color: var(--footer-font-color);
   font-size: 12px;
 }
 
@@ -122,6 +118,5 @@ footer a {
 }
 
 footer a:hover {
-  color: var(--font-color-5);
   text-decoration: none;
 }

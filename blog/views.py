@@ -1,14 +1,16 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from . import models, functions, constants, forms
+from django.utils import timezone
 
 def get_common_context():
     return {
         'types': models.Type.objects.all(),
-        'title': constants.Constants.SITE_NAME,
-        'logo': constants.Constants.SITE_LOGO,
-        'description': constants.Constants.SITE_DESCRIPTION,
-        'flags': {'ru': 'Russia', 'en': 'United-Kingdom', 'fr': 'France', 'de': 'Germany', 'es': 'Spain', 'it': 'Italy', 'pt': 'Portugal', 'iw': 'Israel'},
+        'title': constants.SITE_NAME,
+        'logo': constants.SITE_LOGO,
+        'color': constants.SITE_COLOR,
+        'description': constants.SITE_DESCRIPTION,
+        'flags': constants.SITE_LANGUAGES,
         'disable_sidebar': False
     }
 

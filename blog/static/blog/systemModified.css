@@ -18,3 +18,11 @@ form {
     border-color: var(--site-color);
     color: var(--font-color-1);
 }
+
+button {
+    font-family: inherit;
+    color: var(--font-color-1);
+    background-color: var(--font-color-6);
+    border-color: var(--font-color-6);
+    cursor: pointer;
+}

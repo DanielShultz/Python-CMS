@@ -19,7 +19,7 @@
 
         <!-- Рейтинг -->
         {% if post.rating %}
-        <div class="article-rating d-flex justify-content-center">
+        <div class="article-rating d-flex justify-content-center m-2">
             {% for i in 10|get_range %}
             <i class="fas fa-star {% if i < post.rating %}text-warning{% endif %}"></i>
             {% endfor %}

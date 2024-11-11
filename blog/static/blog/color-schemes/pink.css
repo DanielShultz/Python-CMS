@@ -1,0 +1,41 @@
+body.dark-theme {
+    --site-color: rgb(200, 100, 140);
+    --accent-color: rgb(220, 120, 160);
+    --third-color: rgb(210, 100, 130);
+
+    --font-color-1: rgb(225, 225, 225);
+    --font-color-2: rgb(200, 200, 200);
+    --font-color-3: rgb(150, 150, 150);
+    --font-color-4: rgb(100, 100, 100);
+    --font-color-5: rgb(50, 50, 50);
+    --font-color-6: rgb(25, 25, 25);
+
+    --card-color: var(--font-color-5);
+    --content-color: var(--font-color-5);
+    --body-color: var(--font-color-6);
+
+    --footer-color: rgb(0, 0, 0);
+    --footer-font-color: var(--font-color-2);
+    --footer-header-color: var(--font-color-1);
+}
+
+body.light-theme {
+    --site-color: rgb(240, 110, 150);
+    --accent-color: rgb(255, 170, 190);
+    --third-color: rgb(230, 90, 140);
+
+    --font-color-1: rgb(0, 0, 0);
+    --font-color-2: rgb(51, 51, 51);
+    --font-color-3: rgb(102, 102, 102);
+    --font-color-4: rgb(153, 153, 153);
+    --font-color-5: rgb(240, 240, 240);
+    --font-color-6: rgb(255, 255, 255);
+
+    --card-color: var(--font-color-6);
+    --content-color: var(--font-color-6);
+    --body-color: var(--font-color-5);
+
+    --footer-color: var(--font-color-2);
+    --footer-font-color: var(--font-color-5);
+    --footer-header-color: var(--font-color-6);
+}
