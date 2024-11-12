@@ -12,6 +12,7 @@ class Post(models.Model):
     date_updated = models.DateTimeField(auto_now=True, verbose_name='Дата обновления')
     author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Автор')
     image = models.ImageField(upload_to='upload/post_pics', blank=True, null=True, verbose_name='Изображение')
+    likes = models.ManyToManyField(User, blank=True, related_name='likes', verbose_name='Лайки')
 
     class Meta:
         ordering = ['title']
@@ -20,12 +21,23 @@ class Post(models.Model):
 
     def get_absolute_url(self):
         return f'/post/{self.id}'
+    
+    def like(self, user):
+        if user in self.likes.all():
+            self.likes.remove(user)
+        else:
+            self.likes.add(user)
 
+    def likes_count(self):
+        return self.likes.count()
+    
+    @property
     def next_post(self):
-        return Post.objects.filter(date_posted__gt=self.date_posted, type=self.type).order_by('date_posted').first()
+        return self.__class__.objects.filter(date_posted__gt=self.date_posted, type=self.type).order_by('date_posted').first()
 
+    @property
     def prev_post(self):
-        return Post.objects.filter(date_posted__lt=self.date_posted, type=self.type).order_by('-date_posted').first()
+        return self.__class__.objects.filter(date_posted__lt=self.date_posted, type=self.type).order_by('-date_posted').first()
 
     def __str__(self):
         return self.title

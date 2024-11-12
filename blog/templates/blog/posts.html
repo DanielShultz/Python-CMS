@@ -18,6 +18,10 @@
     <div class="article-metadata">
       <a class="mr-2" href="{{ post.author.profile.get_absolute_url }}">{{ post.author.first_name }} {{ post.author.last_name }}</a>
       <small class="text-muted">{{ post.date_posted|localize }}</small>
+      <small class="text-muted float-right">
+        <i class="fas fa-thumbs-up mr-1"></i>
+        <span id="likes-count-{{ post.pk }}">{{ post.likes_count }}</span>
+      </small>
     </div>
 
     <div class="row">

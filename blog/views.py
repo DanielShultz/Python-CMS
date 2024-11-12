@@ -51,19 +51,35 @@ def post(request, post_id):
         return redirect('blog:home')
 
     context['comments'] = models.Comment.objects.filter(post=context['post'])
+
+    comment_form = forms.CommentForm()
+    context['comment_form'] = comment_form
+    return render(request, 'blog/post.html', context)
+
+def like_post(request, post_id):
+    try:
+        post = models.Post.objects.get(id=post_id)
+    except models.Post.DoesNotExist:
+        messages.error(request, 'Такого поста не существует')
+        return redirect('blog:home')
+
+    post.like(request.user)
+    return redirect('blog-post', post_id=post_id)
+
+def add_comment(request, post_id):
     if request.method == 'POST':
         comment_form = forms.CommentForm(request.POST)
         if comment_form.is_valid():
             comment = comment_form.save(commit=False)
-            comment.post = context['post']
+            comment.post = models.Post.objects.get(id=post_id)
             comment.author = request.user
             comment.save()
             messages.success(request, 'Комментарий добавлен!')
             return redirect('blog-post', post_id=post_id)
     else:
         comment_form = forms.CommentForm()
+    context = get_common_context()
     context['comment_form'] = comment_form
-    return render(request, 'blog/post.html', context)
 
 def delete_comment(request, post_id, comment_id):
     try:

@@ -39,6 +39,16 @@
         <!-- Содержимое -->
         <p class="article-content">{{ post.content }}</p>
 
+        <!-- Лайки -->
+        <div class="article-likes mt-2 text-right">
+            <form method="POST" action="{% url 'like-post' post.pk %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-outline-site">
+                    <i class="fas fa-thumbs-up"></i> {{ post.likes_count }}
+                </button>
+            </form>
+        </div>
+
         <!-- Навигация -->
         <nav class="d-flex justify-content-between mt-4">
             {% if post.prev_post or post.next_post %}
@@ -86,7 +96,7 @@
 <!-- Форма комментирования -->
 {% if user.is_authenticated %}
 <div class="content-section">
-    <form method="POST" action="{% url 'blog-post' post.pk %}">
+    <form method="POST" action="{% url 'add-comment' post.pk %}">
         {% csrf_token %}
         <fieldset class="form-group">
             <legend class="border-bottom mb-4">Добавить комментарий</legend>
