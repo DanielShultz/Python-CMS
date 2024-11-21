@@ -14,17 +14,24 @@
                     <li class="nav-item">
                         <a class="nav-link " href="{% url 'blog-home' %}">Главная</a>
                     </li>
+
+                    {% if types.count > 1 %}
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Контент
                         </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             {% for type in types %}
-                            <a class="dropdown-item" href="{% url 'blog-posts' type.id %}">{{ type.plural }}</a>
+                            <li><a class="dropdown-item" href="{% url 'blog-posts' type.id %}">{{ type.plural }}</a></li>
                             {% endfor %}
-                        </div>
+                        </ul>
                     </li>
+                    {% elif types.count == 1 %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'blog-posts' types.first.id %}">{{ types.first.plural }}</a>
+                    </li>
+                    {%endif %}
 
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'blog-about' %}">О Сайте</a>
@@ -39,32 +46,32 @@
                     </li>
                 </ul>
 
-                <div class="navbar-nav">
+                <div class="navbar-nav ms-auto">
                     <li class="nav-item dropdown">
-                        {% if user.is_authenticated %}
-                        <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" href="#" id="authDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            {% if user.is_authenticated %}
                             {{ user.first_name }} {{ user.last_name }}
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="profileDropdown">
-                            <a class="dropdown-item" href="{% url 'profile' %}">Профиль</a>
-                            <div class="dropdown-divider"></div>
-                            <form method="post" action="{% url 'logout' %}" class="d-inline">
-                                {% csrf_token %}
-                                <button class="dropdown-item" type="submit">Выход</button>
-                            </form>
-                        </div>
-                        {% else %}
-                        <a class="nav-link dropdown-toggle" href="#" id="loginDropdown" role="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {% else %}
                             Вход/регистрация
+                            {% endif %}
                         </a>
-                        <div class="dropdown-menu" aria-labelledby="loginDropdown">
-                            <a class="dropdown-item" href="{% url 'register' %}">Регистрация</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="{% url 'login' %}">Вход</a>
-                        </div>
-                        {% endif %}
+                        <ul class="dropdown-menu" aria-labelledby="authDropdown">
+                            {% if user.is_authenticated %}
+                            <li><a class="dropdown-item" href="{% url 'profile' %}">Профиль</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <form method="post" action="{% url 'logout' %}" class="d-inline">
+                                    {% csrf_token %}
+                                    <button class="dropdown-item" type="submit">Выход</button>
+                                </form>
+                            </li>
+                            {% else %}
+                            <li><a class="dropdown-item" href="{% url 'register' %}">Регистрация</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{% url 'login' %}">Вход</a></li>
+                            {% endif %}
+                        </ul>
                     </li>
 
                     {% include 'blog/components/header/google_translate.html' %}

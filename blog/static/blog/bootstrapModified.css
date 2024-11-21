@@ -190,6 +190,16 @@
   color: rgba(var(--font-color-1), 0.3);
 }
 
+.nav-link {
+  color: var(--site-color);
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover,
+.nav-link:focus {
+  color: rgba(var(--font-color-1), 0.5);
+}
+
 .navbar-nav {
   background-color: var(--site-color);
   color: var(--font-color-1);
@@ -211,6 +221,7 @@
 .card {
   background-color: var(--card-color);
   border-color: var(--font-color-3);
+  color: var(--font-color-1);
 }
 
 .card-header {

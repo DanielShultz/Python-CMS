@@ -22,6 +22,7 @@ def get_posts_context():
 def home(request):
     context = get_posts_context()
     context['disable_sidebar'] = True
+    context['banners'] = models.Banner.objects.all()
     return render(request, 'blog/home.html', context)
 
 def about(request):

@@ -120,3 +120,11 @@ footer a {
 footer a:hover {
   text-decoration: none;
 }
+
+footer .nav-link {
+  color: var(--accent-color);
+}
+
+footer .nav-link:hover {
+  color: var(--site-color);
+}

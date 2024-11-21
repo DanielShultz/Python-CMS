@@ -2,14 +2,38 @@
 {% load static %}
 {% block content %}
 
-<div class="content-section">
-    <div class="banner">
-        <img src="{% static '../upload/images/banner.jpg' %}" alt="Баннер" class="img-fluid w-100">
-        <div class="banner-text text-center">
-            <h1 class="display-4">Добро пожаловать на наш сайт!</h1>
-            <p class="lead">Исследуйте невероятные возможности путешествий с нами!</p>
-        </div>
+<div id="carouselExampleIndicators" class="carousel slide mb-4" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+        {% for banner in banners %}
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ forloop.counter0 }}" 
+        {% if forloop.first %}class="active" {% endif %} 
+        aria-current="true" aria-label="Slide {{ forloop.counter }}"></button>
+        {% endfor %}
     </div>
+    <div class="carousel-inner">
+        {% for banner in banners %}
+        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+            <img src="{{ banner.image.url }}" class="d-block w-100" alt="{{ banner.title }}"
+                style="aspect-ratio: 3/1; object-fit: cover;">
+            <div class="carousel-caption d-none d-md-block">
+                <h5>{{ banner.title }}</h5>
+                {% if banner.description %}
+                <p>{{ banner.description }}</p>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+        data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+        data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
 </div>
 
 {% for type in types %}

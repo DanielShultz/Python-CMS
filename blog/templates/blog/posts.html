@@ -1,22 +1,20 @@
 ﻿{% extends "blog/components/base.html" %}
 {% block content %}
-<!-- <form method="get" class="mb-4">
-  <div class="input-group">
-    <select name="type" class="form-control" onchange="this.form.submit()">
-      <option value="">Всё</option>
-      {% for type in types %}
-      <option value="{{ type.id }}" {% if type.id|stringformat:"s" == request.GET.type|stringformat:"s" %}selected{% endif %}>
-        {{ type.name }}
-      </option>
-      {% endfor %}
-    </select>
-  </div>
-</form> -->
+
+{% if posts.count > 0 %}
+<div class="content-section">
+  <h2 class="text-center">{{ posts.first.type.plural }}</h2>
+</div>
+{% endif %}
+
 {% for post in posts %}
 <article class="media content-section">
   <div class="media-body">
     <div class="article-metadata">
-      <a class="mr-2" href="{{ post.author.profile.get_absolute_url }}">{{ post.author.first_name }} {{ post.author.last_name }}</a>
+      <a class="mr-2" href="{{ post.author.profile.get_absolute_url }}">
+        {{ post.author.first_name }}
+        {{ post.author.last_name }}
+      </a>
       <small class="text-muted">{{ post.date_posted|localize }}</small>
       <small class="text-muted float-right">
         <i class="fas fa-thumbs-up mr-1"></i>

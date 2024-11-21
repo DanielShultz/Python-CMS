@@ -54,11 +54,6 @@ class Type(models.Model):
     def __str__(self):
         return self.name
 
-    def save(self, *args, **kwargs):
-        if not self.plural:
-            self.plural = self.name
-        super().save(*args, **kwargs)
-
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, verbose_name='Пост')
     author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Автор')
@@ -72,3 +67,63 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.content
+
+class CartItem(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, verbose_name='Товар')
+    quantity = models.PositiveIntegerField(default=1, verbose_name='Количество')
+    cart = models.ForeignKey('Cart', on_delete=models.CASCADE, related_name='cart_items', verbose_name='Корзина')
+
+    class Meta:
+        verbose_name = 'Товар в корзине'
+        verbose_name_plural = 'Товары в корзине'
+
+    def __str__(self):
+        return f'{self.post} x{self.quantity}'
+
+
+class Cart(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='Пользователь')
+    items = models.ManyToManyField(Post, through=CartItem, related_name='cart_items', verbose_name='Товары')
+
+    class Meta:
+        verbose_name = 'Корзина товаров'
+        verbose_name_plural = 'Корзины товаров'
+
+    def __str__(self):
+        return self.user.username
+
+class Order(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь')
+    date_ordered = models.DateTimeField(default=timezone.now, verbose_name='Дата заказа')
+
+    class Meta:
+        verbose_name = 'Заказ'
+        verbose_name_plural = 'Заказы'
+
+    def __str__(self):
+        return f'{self.user.username} - {self.date_ordered}'
+
+class OrderItem(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='order_items', verbose_name='Заказ')
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, verbose_name='Товар')
+    price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Цена')
+    quantity = models.PositiveIntegerField(default=1, verbose_name='Количество')
+
+    class Meta:
+        verbose_name = 'Товар в заказе'
+        verbose_name_plural = 'Товары в заказе'
+
+    def __str__(self):
+        return f'{self.post.title} - {self.quantity} шт. - {self.price} руб.'
+    
+class Banner(models.Model):
+    title = models.CharField(max_length=100, verbose_name='Заголовок')
+    image = models.ImageField(upload_to='upload/banners', verbose_name='Изображение')
+    description = models.TextField(verbose_name='Описание', blank=True, null=True)
+
+    class Meta:
+        verbose_name = 'Баннер'
+        verbose_name_plural = 'Баннеры'
+
+    def __str__(self):
+        return self.title
