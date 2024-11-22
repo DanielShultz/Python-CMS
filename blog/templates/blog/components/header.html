@@ -74,9 +74,11 @@
                         </ul>
                     </li>
 
+                    {% if enable_multilingual %}
                     {% include 'blog/components/header/google_translate.html' %}
+                    {% endif %}
 
-                    <button id="themeToggle" class="nav-item nav-link btn btn-link-black">
+                    <button id="themeToggle" class="nav-item btn btn-link-black">
                         <i class="fas fa-adjust"></i>
                     </button>
                 </div>

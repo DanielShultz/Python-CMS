@@ -4,10 +4,10 @@
     <h1>Добро пожаловать на страницу сотрудников</h1>
     <p>Здесь вы можете найти информацию о наших сотрудниках и их достижениях.</p>
 
-    <div class="row mt-4">
+    <div class="row mt-4 align-items-stretch">
         {% for staff_member in staff_members %}
-        <div class="col-md-6">
-            <div class="card mb-4">
+        <div class="col-md-6 d-flex align-items-stretch">
+            <div class="card mb-4 flex-fill">
                 <img class="card-img-top rounded-circle" src="{{ staff_member.image.url }}" alt="{{ staff_member.username }}" width="250">
                 <div class="card-body">
                     <h3 class="card-title">{{ staff_member.user.first_name }} {{ staff_member.user.last_name }}</h3>

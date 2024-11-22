@@ -7,7 +7,7 @@ class ShutdownMiddleware:
 
     def __call__(self, request):
         current_date = datetime.now()
-        shutdown_date = datetime(2024, 12, 12)
+        shutdown_date = datetime(2025, 9, 1)
         if current_date > shutdown_date:
             return HttpResponseNotFound("Сайт закрыт")
         else:

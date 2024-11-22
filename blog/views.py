@@ -10,6 +10,7 @@ def get_common_context():
         'logo': constants.SITE_LOGO,
         'color': constants.SITE_COLOR,
         'description': constants.SITE_DESCRIPTION,
+        'enable_multilingual': constants.SITE_ENABLE_MULTILINGUAL,
         'flags': constants.SITE_LANGUAGES,
         'disable_sidebar': False
     }

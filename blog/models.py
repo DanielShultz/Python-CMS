@@ -11,7 +11,7 @@ class Post(models.Model):
     date_posted = models.DateTimeField(default=timezone.now, verbose_name='Дата публикации')
     date_updated = models.DateTimeField(auto_now=True, verbose_name='Дата обновления')
     author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Автор')
-    image = models.ImageField(upload_to='upload/post_pics', blank=True, null=True, verbose_name='Изображение')
+    image = models.ImageField(upload_to='post_pics', blank=True, null=True, verbose_name='Изображение')
     likes = models.ManyToManyField(User, blank=True, related_name='likes', verbose_name='Лайки')
 
     class Meta:
@@ -118,7 +118,7 @@ class OrderItem(models.Model):
     
 class Banner(models.Model):
     title = models.CharField(max_length=100, verbose_name='Заголовок')
-    image = models.ImageField(upload_to='upload/banners', verbose_name='Изображение')
+    image = models.ImageField(upload_to='banners', verbose_name='Изображение')
     description = models.TextField(verbose_name='Описание', blank=True, null=True)
 
     class Meta:
