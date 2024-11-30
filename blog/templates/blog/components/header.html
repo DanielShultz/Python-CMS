@@ -74,6 +74,19 @@
                         </ul>
                     </li>
 
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'blog-cart' %}">
+                            <i class="fas fa-shopping-cart"></i>
+                            {% with items=cart.items.all %}
+                            {% if items.count > 0 %}
+                            <span class="badge rounded-pill bg-warning text-dark">{{ items.count }}</span>
+                            {% endif %}
+                            {% endwith %}
+                        </a>
+                    </li>
+                    {% endif %}
+
                     {% if enable_multilingual %}
                     {% include 'blog/components/header/google_translate.html' %}
                     {% endif %}

@@ -46,7 +46,13 @@
         <p class="article-price text-center">{{ post.price }} <i class="fas fa-ruble-sign"></i></p>
         {% endif %}
 
-        <a href="{{ post.get_absolute_url }}" class="btn btn-outline-site mt-auto mx-auto text-center">Подробнее</a>
+        <div class="d-flex justify-content-center mt-2">
+          <a href="{{ post.get_absolute_url }}" class="btn btn-outline-site mx-2">Подробнее</a>
+          <form method="POST" action="{% url 'add-to-cart' post.pk %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-outline-site">Добавить в корзину</button>
+          </form>
+        </div>
       </div>
     </div>
 

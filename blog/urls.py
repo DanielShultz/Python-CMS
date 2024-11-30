@@ -9,5 +9,7 @@ urlpatterns = [
     path('post/<int:post_id>/like', views.like_post, name='like-post'),
     path('post/<int:post_id>/comment', views.add_comment, name='add-comment'),
     path('post/<int:post_id>/comment/<int:comment_id>/delete', views.delete_comment, name='delete-comment'),
+    path('post/<int:post_id>/add_to_cart', views.add_to_cart, name='add-to-cart'),
+    path('cart/', views.cart, name='blog-cart'),
     path('contact/', views.contact, name='blog-contact'),
 ]

@@ -1,0 +1,36 @@
+{% extends "blog/components/base.html" %}
+{% block content %}
+
+<div class="content-section">
+    <h2 class="text-center">Корзина</h2>
+</div>
+
+{% if cart %}
+<div class="content-section">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Продукт</th>
+                <th>Цена</th>
+                <th>Количество</th>
+                <th>Итого</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in cart %}
+            <tr>
+                <td>{{ item.post.title }}</td>
+                <td>{{ item.post.price }} руб.</td>
+                <td></td>
+                <td>руб.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <p>Итого: {{ cart.get_total_price }} руб.</p>
+</div>
+{% else %}
+<p>Корзина пуста</p>
+{% endif %}
+
+{% endblock content %}

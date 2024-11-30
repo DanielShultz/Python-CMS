@@ -11,6 +11,10 @@ def get(obj, key):
     return obj[key]
 
 @register.filter
+def mul(value, arg):
+    return value * arg
+
+@register.filter
 def truncatesentences(value, arg):
     """
     Truncates a string after a certain number of sentences.

@@ -69,9 +69,17 @@ class Comment(models.Model):
         return self.content
 
 class CartItem(models.Model):
-    post = models.ForeignKey(Post, on_delete=models.CASCADE, verbose_name='Товар')
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='cart_items', verbose_name='Товар')
     quantity = models.PositiveIntegerField(default=1, verbose_name='Количество')
     cart = models.ForeignKey('Cart', on_delete=models.CASCADE, related_name='cart_items', verbose_name='Корзина')
+
+    @property
+    def post_price(self):
+        return self.post.price
+
+    @property
+    def total_price(self):
+        return self.post_price * self.quantity
 
     class Meta:
         verbose_name = 'Товар в корзине'
@@ -80,10 +88,28 @@ class CartItem(models.Model):
     def __str__(self):
         return f'{self.post} x{self.quantity}'
 
-
 class Cart(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='Пользователь')
-    items = models.ManyToManyField(Post, through=CartItem, related_name='cart_items', verbose_name='Товары')
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='cart', verbose_name='Пользователь')
+
+    @property
+    def total_price(self):
+        return sum(item.total_price for item in self.cart_items.all())
+    
+    @property
+    def total_quantity(self):
+        return sum(item.quantity for item in self.cart_items.all())
+    
+    @property
+    def total_items(self):
+        return self.cart_items.count()
+    
+    def add_item(self, post, quantity=1):
+        item, created = CartItem.objects.get_or_create(cart=self, post=post)
+        if created:
+            item.quantity = quantity
+        else:
+            item.quantity += quantity
+        item.save()
 
     class Meta:
         verbose_name = 'Корзина товаров'
