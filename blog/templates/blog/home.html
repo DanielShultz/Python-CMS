@@ -14,12 +14,12 @@
         {% for banner in banners %}
         <div class="carousel-item {% if forloop.first %}active{% endif %}">
             <img src="{{ banner.image.url }}" class="d-block w-100 carousel-image" alt="{{ banner.title }}">
+            {% if banner.title or banner.description %}
             <div class="carousel-caption d-none d-md-block">
-                <h5>{{ banner.title }}</h5>
-                {% if banner.description %}
-                <p>{{ banner.description }}</p>
-                {% endif %}
+                {% if banner.title %}<h5>{{ banner.title }}</h5>{% endif %}
+                {% if banner.description %}<p>{{ banner.description }}</p>{% endif %}
             </div>
+            {% endif %}
         </div>
         {% endfor %}
     </div>
@@ -44,6 +44,10 @@
             <div class="card mb-4">
                 {% if post.image %}
                 <img class="card-img-top" src="{{ post.image.url }}" alt="Изображение поста">
+                {% elif post.map %}
+                <script type="text/javascript" charset="utf-8" async
+                    src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%{{ post.map }}&amp;width=100%&amp;height=400&amp;lang=ru_RU&amp;scroll=true">
+                </script>
                 {% endif %}
                 <div class="card-body d-flex flex-column">
                     <h5 class="card-title">{{ post.title }}</h5>

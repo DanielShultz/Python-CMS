@@ -8,6 +8,7 @@ class Post(models.Model):
     content = models.TextField(verbose_name='Содержание')
     rating = models.IntegerField(blank=True, null=True, verbose_name='Рейтинг')
     price = models.DecimalField(max_digits=8, decimal_places=2, blank=True, null=True, verbose_name='Цена')
+    map = models.TextField(blank=True, null=True, verbose_name='Код карты')
     date_posted = models.DateTimeField(default=timezone.now, verbose_name='Дата публикации')
     date_updated = models.DateTimeField(auto_now=True, verbose_name='Дата обновления')
     author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Автор')
@@ -67,83 +68,9 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.content
-
-class CartItem(models.Model):
-    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='cart_items', verbose_name='Товар')
-    quantity = models.PositiveIntegerField(default=1, verbose_name='Количество')
-    cart = models.ForeignKey('Cart', on_delete=models.CASCADE, related_name='cart_items', verbose_name='Корзина')
-
-    @property
-    def post_price(self):
-        return self.post.price
-
-    @property
-    def total_price(self):
-        return self.post_price * self.quantity
-
-    class Meta:
-        verbose_name = 'Товар в корзине'
-        verbose_name_plural = 'Товары в корзине'
-
-    def __str__(self):
-        return f'{self.post} x{self.quantity}'
-
-class Cart(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='cart', verbose_name='Пользователь')
-
-    @property
-    def total_price(self):
-        return sum(item.total_price for item in self.cart_items.all())
-    
-    @property
-    def total_quantity(self):
-        return sum(item.quantity for item in self.cart_items.all())
-    
-    @property
-    def total_items(self):
-        return self.cart_items.count()
-    
-    def add_item(self, post, quantity=1):
-        item, created = CartItem.objects.get_or_create(cart=self, post=post)
-        if created:
-            item.quantity = quantity
-        else:
-            item.quantity += quantity
-        item.save()
-
-    class Meta:
-        verbose_name = 'Корзина товаров'
-        verbose_name_plural = 'Корзины товаров'
-
-    def __str__(self):
-        return self.user.username
-
-class Order(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь')
-    date_ordered = models.DateTimeField(default=timezone.now, verbose_name='Дата заказа')
-
-    class Meta:
-        verbose_name = 'Заказ'
-        verbose_name_plural = 'Заказы'
-
-    def __str__(self):
-        return f'{self.user.username} - {self.date_ordered}'
-
-class OrderItem(models.Model):
-    order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='order_items', verbose_name='Заказ')
-    post = models.ForeignKey(Post, on_delete=models.CASCADE, verbose_name='Товар')
-    price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Цена')
-    quantity = models.PositiveIntegerField(default=1, verbose_name='Количество')
-
-    class Meta:
-        verbose_name = 'Товар в заказе'
-        verbose_name_plural = 'Товары в заказе'
-
-    def __str__(self):
-        return f'{self.post.title} - {self.quantity} шт. - {self.price} руб.'
     
 class Banner(models.Model):
-    title = models.CharField(max_length=100, verbose_name='Заголовок')
+    title = models.CharField(max_length=100, verbose_name='Заголовок', blank=True, null=True)
     image = models.ImageField(upload_to='banners', verbose_name='Изображение')
     description = models.TextField(verbose_name='Описание', blank=True, null=True)
 
@@ -152,4 +79,4 @@ class Banner(models.Model):
         verbose_name_plural = 'Баннеры'
 
     def __str__(self):
-        return self.title
+        return self.title if self.title else self.image.name.split('/')[-1]

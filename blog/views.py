@@ -8,7 +8,6 @@ from django.http import HttpRequest
 def get_common_context(request=None):
     context = {
         'types': models.Type.objects.all(),
-        'cart': models.Cart.objects.filter(user=request.user) if request and request.user.is_authenticated else None,
         'title': constants.SITE_NAME,
         'logo': constants.SITE_LOGO,
         'color': constants.SITE_COLOR,
@@ -103,25 +102,3 @@ def delete_comment(request, post_id, comment_id):
     else:
         messages.error(request, 'Вы не можете удалить этот комментарий.')
         return redirect('blog-post', post_id=post_id)
-    
-def add_to_cart(request, post_id):
-    try:
-        post = models.Post.objects.get(id=post_id)
-    except models.Post.DoesNotExist:
-        messages.error(request, 'Такого предмета не существует')
-        return redirect('blog:home')
-    if not request.user.is_authenticated:
-        messages.info(request, 'Для добавления в корзину, пожалуйста, авторизуйтесь.')
-        return redirect('login')
-    cart, _ = models.Cart.objects.get_or_create(user=request.user)
-    cart.add_item(post)
-    messages.success(request, 'Предмет добавлен в корзину.')
-    return redirect('blog-post', post_id=post_id)
-
-def cart(request):
-    if not request.user.is_authenticated:
-        messages.info(request, 'Для просмотра корзины, пожалуйста, авторизуйтесь.')
-        return redirect('login')
-    context = get_common_context()
-    context['cart'] = models.Cart.objects.filter(user=request.user)
-    return render(request, 'blog/cart.html', context)

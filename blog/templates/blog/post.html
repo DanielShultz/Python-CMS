@@ -35,6 +35,17 @@
         <img class="article-image" src="{{ post.image.url }}" alt="{{ post.title }}" />
         {% endif %}
 
+        {% if post.map %}
+        <div class="pt-4">
+            <div class="d-flex justify-content-center">
+                <h5>Яндекс карта</h5>
+            </div>
+            <script type="text/javascript" charset="utf-8" async
+                src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%{{ post.map }}&amp;width=100%&amp;height=400&amp;lang=ru_RU&amp;scroll=true">
+            </script>
+        </div>
+        {% endif %}
+
         <!-- Цена -->
         {% if post.price %}
         <p class="article-price">{{ post.price }} <i class="fas fa-ruble-sign"></i></p>
@@ -79,7 +90,8 @@
         <div class="article-metadata d-flex justify-content-between align-items-center">
             <div>
                 <a href="{{ comment.author.profile.get_absolute_url }}">
-                    <img class="rounded-circle" src="{{ comment.author.profile.image.url }}" alt="" width="50" height="50">
+                    <img class="rounded-circle" src="{{ comment.author.profile.image.url }}" alt="" width="50"
+                        height="50">
                 </a>
                 <a class="mr-2" href="{{ comment.author.profile.get_absolute_url }}">
                     {{ comment.author.first_name }}
