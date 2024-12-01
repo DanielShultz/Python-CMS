@@ -3,18 +3,23 @@ body.dark-theme {
     --accent-color: rgb(80, 160, 120);
     --third-color: rgb(100, 150, 90);
 
-    --font-color-1: rgb(225, 225, 225);
-    --font-color-2: rgb(200, 200, 200);
-    --font-color-3: rgb(150, 150, 150);
-    --font-color-4: rgb(100, 100, 100);
-    --font-color-5: rgb(50, 50, 50);
-    --font-color-6: rgb(25, 25, 25);
+    --font-color-1: rgb(255, 255, 255);
+    --font-color-2: rgb(220, 220, 220);
+    --font-color-3: rgb(180, 180, 180);
+    --font-color-4: rgb(140, 140, 140);
+    --font-color-5: rgb(80, 80, 80);
+    --font-color-6: rgb(40, 40, 40);
+
+    --rgba-color-05: rgba(255, 255, 255, 0.05);
+    --rgba-color-20: rgba(255, 255, 255, 0.2);
+    --rgba-color-50: rgba(255, 255, 255, 0.5);
+    --rgba-color-80: rgba(255, 255, 255, 0.8);
 
     --card-color: var(--font-color-5);
     --content-color: var(--font-color-5);
     --body-color: var(--font-color-6);
 
-    --footer-color: rgb(0, 0, 0);
+    --footer-color: rgb(20, 20, 20);
     --footer-font-color: var(--font-color-2);
     --footer-header-color: var(--font-color-1);
 }
@@ -24,12 +29,17 @@ body.light-theme {
     --accent-color: rgb(150, 240, 170);
     --third-color: rgb(140, 220, 120);
 
-    --font-color-1: rgb(0, 0, 0);
-    --font-color-2: rgb(51, 51, 51);
-    --font-color-3: rgb(102, 102, 102);
-    --font-color-4: rgb(153, 153, 153);
-    --font-color-5: rgb(240, 240, 240);
-    --font-color-6: rgb(255, 255, 255);
+    --font-color-1: rgb(30, 30, 30);
+    --font-color-2: rgb(71, 71, 71);
+    --font-color-3: rgb(122, 122, 122);
+    --font-color-4: rgb(173, 173, 173);
+    --font-color-5: rgb(220, 220, 220);
+    --font-color-6: rgb(240, 240, 240);
+
+    --rgba-color-05: rgba(30, 30, 30, 0.05);
+    --rgba-color-20: rgba(30, 30, 30, 0.2);
+    --rgba-color-50: rgba(30, 30, 30, 0.5);
+    --rgba-color-80: rgba(30, 30, 30, 0.8);
 
     --card-color: var(--font-color-6);
     --content-color: var(--font-color-6);

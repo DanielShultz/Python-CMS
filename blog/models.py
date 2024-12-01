@@ -3,7 +3,7 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 
 class Post(models.Model):
-    title = models.CharField(max_length=100, verbose_name='Заголовок')
+    title = models.CharField(max_length=200, verbose_name='Заголовок')
     type = models.ForeignKey('Type', on_delete=models.CASCADE, verbose_name='Тип')
     content = models.TextField(verbose_name='Содержание')
     rating = models.IntegerField(blank=True, null=True, verbose_name='Рейтинг')
