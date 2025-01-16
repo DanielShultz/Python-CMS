@@ -14,7 +14,8 @@ def get_common_context(request=None):
         'description': constants.SITE_DESCRIPTION,
         'enable_multilingual': constants.SITE_ENABLE_MULTILINGUAL,
         'flags': constants.SITE_LANGUAGES,
-        'disable_sidebar': False
+        'disable_sidebar': False,
+        'private': constants.SITE_PRIVATE
     }
     if request and request.COOKIES.get('language'):
         context['language'] = request.COOKIES['language']
@@ -63,12 +64,31 @@ def post(request, post_id):
     context['comment_form'] = comment_form
     return render(request, 'blog/post.html', context)
 
+def generate_posts(request):
+    post_type = models.Type.objects.first()
+    if not post_type:
+        messages.error(request, 'Тип поста не найден')
+        return redirect('blog-home')
+
+    posts = [
+        models.Post(
+            title=f'Заголовок поста {i}',
+            content=f'Содержание поста {i}',
+            type=post_type,
+            author=request.user
+        )
+        for i in range(2000)
+    ]
+    models.Post.objects.bulk_create(posts)
+    messages.success(request, 'Посты успешно созданы')
+    return redirect('blog-home')
+
 def like_post(request, post_id):
     try:
         post = models.Post.objects.get(id=post_id)
     except models.Post.DoesNotExist:
         messages.error(request, 'Такого поста не существует')
-        return redirect('blog:home')
+        return redirect('blog-home')
 
     post.like(request.user)
     return redirect('blog-post', post_id=post_id)

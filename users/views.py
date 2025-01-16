@@ -7,6 +7,7 @@ from blog.views import get_common_context
 from .models import Profile
 from blog.models import Post, Type
 from django.contrib.auth.models import User
+from blog import constants
 
 def login(request):
     if request.method == 'POST':
@@ -30,18 +31,22 @@ def logout(request):
     return redirect('blog-home')
 
 def register(request):
-    if request.method == 'POST':
-        form = forms.UserRegisterForm(request.POST)
-        if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get('username')
-            messages.success(request, f'Ваш аккаунт создан: можно войти на сайт.')
-            return redirect('login')
+    if not constants.SITE_PRIVATE:
+        if request.method == 'POST':
+            form = forms.UserRegisterForm(request.POST)
+            if form.is_valid():
+                form.save()
+                username = form.cleaned_data.get('username')
+                messages.success(request, f'Ваш аккаунт создан: можно войти на сайт.')
+                return redirect('login')
+        else:
+            form = forms.UserRegisterForm()
+        context = get_common_context()
+        context['form'] = form
+        return render(request, 'users/register.html', context)
     else:
-        form = forms.UserRegisterForm()
-    context = get_common_context()
-    context['form'] = form
-    return render(request, 'users/register.html', context)
+        messages.error(request, 'Регистрация на этом сайте закрыта.')
+        return redirect('blog-home')
 
 @login_required
 def profile(request):

@@ -6,6 +6,7 @@
         <p class='text-muted'>навигация по сайту
         <ul class="list-group">
             <li class="list-group-item list-group-item-light"><a href="{% url 'blog-home' %}">Главная</a></li>
+            {% if user.is_authenticated or not private %}
             {% for type in types %}
             <li class="list-group-item list-group-item-light">
                 <a href="{% url 'blog-posts' type.id %}">
@@ -13,8 +14,11 @@
                 </a>
             </li>
             {% endfor %}
+            {% endif %}
             <li class="list-group-item list-group-item-light"><a href="{% url 'blog-about' %}">О сайте</a></li>
+            {% if user.is_authenticated or not private %}
             <li class="list-group-item list-group-item-light"><a href="{% url 'staff' %}">Персонал</a></li>
+            {% endif %}
             <li class="list-group-item list-group-item-light"><a href="{% url 'blog-contact' %}">Контакты</a></li>
             <li class="list-group-item list-group-item-light"><a href="{% url 'profile' %}">Профиль</a></li>
         </ul>

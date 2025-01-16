@@ -1,5 +1,7 @@
 {% extends "blog/components/base.html" %}
 {% block content %}
+{% if user.is_authenticated or not private %}
+
 <div class="content-section text-center">
     <h1>Добро пожаловать на страницу сотрудников</h1>
     <p>Здесь вы можете найти информацию о наших сотрудниках и их достижениях.</p>
@@ -26,4 +28,6 @@
     </div>
 
 </div>
+
+{% endif %}
 {% endblock content %}

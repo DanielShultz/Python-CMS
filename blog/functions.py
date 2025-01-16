@@ -52,4 +52,3 @@ def localize(value):
             formatted_date = formatted_date.replace(month_en, month_ru)
         return formatted_date
     return _(value)
-

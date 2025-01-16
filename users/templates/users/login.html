@@ -12,11 +12,13 @@
                 <button class="btn btn-outline-site" type="submit">Войти</button>
             </div>
         </form>
+        {% if not private %}
         <div class="border-top pt-3">
             <small class="text-muted">
                 Нужен аккаунт? <a class="ml-2" href="{% url 'register' %}">Регистрация</a>
             </small>
         </div>
+        {% endif %}
     </div>
 {% endblock content %}
 

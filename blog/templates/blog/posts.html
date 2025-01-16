@@ -1,5 +1,6 @@
 ﻿{% extends "blog/components/base.html" %}
 {% block content %}
+{% if user.is_authenticated or not private %}
 
 {% if posts.count > 0 %}
 <div class="content-section">
@@ -59,4 +60,5 @@
   </div>
 </article>
 {% endfor %}
+{% endif %}
 {% endblock content %}

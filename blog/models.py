@@ -14,7 +14,7 @@ class Post(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Автор')
     image = models.ImageField(upload_to='post_pics', blank=True, null=True, verbose_name='Изображение')
     likes = models.ManyToManyField(User, blank=True, related_name='likes', verbose_name='Лайки')
-
+    
     class Meta:
         ordering = ['title']
         verbose_name = 'Пост'
