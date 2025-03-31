@@ -1,0 +1,51 @@
+body.dark-theme {
+    --site-color: rgb(150, 75, 0);
+    --accent-color: rgb(165, 42, 42);
+    --third-color: rgb(139, 69, 19);
+
+    --font-color-1: rgb(255, 255, 255);
+    --font-color-2: rgb(220, 220, 220);
+    --font-color-3: rgb(180, 180, 180);
+    --font-color-4: rgb(140, 140, 140);
+    --font-color-5: rgb(80, 80, 80);
+    --font-color-6: rgb(40, 40, 40);
+
+    --rgba-color-05: rgba(255, 255, 255, 0.05);
+    --rgba-color-20: rgba(255, 255, 255, 0.2);
+    --rgba-color-50: rgba(255, 255, 255, 0.5);
+    --rgba-color-80: rgba(255, 255, 255, 0.8);
+
+    --card-color: var(--font-color-5);
+    --content-color: var(--font-color-5);
+    --body-color: var(--font-color-6);
+
+    --footer-color: rgb(20, 20, 20);
+    --footer-font-color: var(--font-color-2);
+    --footer-header-color: var(--font-color-1);
+}
+
+body.light-theme {
+    --site-color: rgb(222, 184, 135);
+    --accent-color: rgb(210, 180, 140);
+    --third-color: rgb(244, 164, 96);
+
+    --font-color-1: rgb(30, 30, 30);
+    --font-color-2: rgb(71, 71, 71);
+    --font-color-3: rgb(122, 122, 122);
+    --font-color-4: rgb(173, 173, 173);
+    --font-color-5: rgb(220, 220, 220);
+    --font-color-6: rgb(240, 240, 240);
+
+    --rgba-color-05: rgba(30, 30, 30, 0.05);
+    --rgba-color-20: rgba(30, 30, 30, 0.2);
+    --rgba-color-50: rgba(30, 30, 30, 0.5);
+    --rgba-color-80: rgba(30, 30, 30, 0.8);
+
+    --card-color: var(--font-color-6);
+    --content-color: var(--font-color-6);
+    --body-color: var(--font-color-5);
+
+    --footer-color: var(--font-color-2);
+    --footer-font-color: var(--font-color-5);
+    --footer-header-color: var(--font-color-6);
+}

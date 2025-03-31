@@ -1,10 +1,29 @@
 ﻿{% extends "blog/components/base.html" %}
+{% load static %}
+{% load custom_filters %}
 {% block content %}
 {% if user.is_authenticated or not private %}
 
-{% if posts.count > 0 %}
 <div class="content-section">
-  <h2 class="text-center">{{ posts.first.type.plural }}</h2>
+  <h2 class="text-center">{{ type.plural }}</h2>
+</div>
+
+{% if posts.count > 0 %}
+<div class="sorting-options mb-4">
+  <div class="dropdown">
+      <button class="btn btn-outline-secondary dropdown-toggle px-3 py-1" type="button" 
+              id="sortDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+          Сортировка: {{ sort_options|get_item:current_sort }}
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="sortDropdown">
+          {% for key, value in sort_options.items %}
+          <li>
+              <a class="dropdown-item {% if current_sort == key %}active{% endif %}" 
+                 href="?sort={{ key }}">{{ value }}</a>
+          </li>
+          {% endfor %}
+      </ul>
+  </div>
 </div>
 {% endif %}
 
@@ -16,10 +35,10 @@
         {{ post.author.first_name }}
         {{ post.author.last_name }}
       </a>
-      <small class="text-muted">{{ post.date_posted|localize }}</small>
+      <small class="text-muted">{{ post.date_posted|date:"d E Y H:i" }}</small>
       <small class="text-muted float-right">
         <i class="fas fa-thumbs-up mr-1"></i>
-        <span id="likes-count-{{ post.pk }}">{{ post.likes_count }}</span>
+        <span id="likes-count-{{ post.pk }}">{{ post.likes_count|default:0 }}</span>
       </small>
     </div>
 
@@ -37,15 +56,16 @@
       <div class="{% if post.image or post.map %}col-md-8{% else %}col-md-12{% endif %} d-flex flex-column justify-content-center">
         <h2 class="article-title text-center">{{ post.title }}</h2>
 
-        {% if post.rating %}
+        {% if post.avg_rating %}
         <div class="article-rating d-flex justify-content-center m-2">
-          {% for i in 10|get_range %}
-          <i class="fas fa-star {% if i < post.rating %}text-warning{% endif %}"></i>
+          {% for i in "1234567890" %}
+          <i class="fas fa-star {% if forloop.counter <= post.avg_rating %}text-warning{% endif %}"></i>
           {% endfor %}
+          <small class="text-muted ml-2">({{ post.avg_rating|floatformat:1 }})</small>
         </div>
         {% endif %}
 
-        <p class="article-content text-center">{{ post.content|truncatesentences:2 }}</p>
+        <p class="article-content text-center">{{ post.content|truncatewords:30 }}</p>
 
         {% if post.price %}
         <p class="article-price text-center">{{ post.price }} <i class="fas fa-ruble-sign"></i></p>

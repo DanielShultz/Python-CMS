@@ -128,3 +128,11 @@ footer .nav-link {
 footer .nav-link:hover {
   color: var(--site-color);
 }
+
+.rating-stars .fa-star {
+  transition: all 0.2s;
+}
+.rating-stars .fa-star:hover {
+  transform: scale(1.2);
+  color: #ffc107 !important;
+}

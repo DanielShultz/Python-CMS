@@ -38,11 +38,11 @@
 {% endif %}
 
 {% if user.is_authenticated or not private %}
-{% for type in types %}
+{% for type, posts in posts_by_type.items %}
 <div class="content-section">
     <h2 class="text-center">{{ type.plural }}</h2>
     <div class="row">
-        {% for post in type.post_set.all %}
+        {% for post in posts %}
         <div class="col-md-4 d-flex align-items-stretch">
             <div class="card mb-4">
                 {% if post.image %}
@@ -54,12 +54,29 @@
                 {% endif %}
                 <div class="card-body d-flex flex-column">
                     <h5 class="card-title">{{ post.title }}</h5>
+                    
+                    <!-- Отображение рейтинга -->
+                    {% if post.avg_rating %}
+                    <div class="rating mb-2">
+                        {% for i in "1234567890" %}
+                        <i class="fas fa-star {% if forloop.counter <= post.avg_rating %}text-warning{% else %}text-muted{% endif %}"></i>
+                        {% endfor %}
+                        <small class="text-muted ml-1">({{ post.avg_rating|floatformat:1 }})</small>
+                    </div>
+                    {% endif %}
+                    
                     <p class="card-text">{{ post.content|truncatechars:150 }}</p>
                     <a href="{{ post.get_absolute_url }}" class="btn btn-outline-site mt-auto">Подробнее</a>
                 </div>
             </div>
         </div>
         {% endfor %}
+    </div>
+    <!-- Ссылка на все посты этого типа -->
+    <div class="text-center mt-2">
+        <a href="{% url 'blog-posts' type.id %}" class="btn btn-outline-secondary">
+            Все {{ type.plural|lower }}
+        </a>
     </div>
 </div>
 {% endfor %}
